@@ -1,5 +1,5 @@
 import Text.ParserCombinators.ReadPrec (step)
-import System.Win32 (xBUTTON1)
+import System.Win32 (xBUTTON1, COORD (yPos))
 
 bmi :: Float -> Float -> String
 bmi weight height 
@@ -74,5 +74,14 @@ findLargest (x:xs)
   | otherwise = largestRest
   where largestRest = findLargest xs
 
+
+calculator :: Fractional a => a -> String -> a -> a
+calculator x operation y = 
+  case operation of "+" -> x + y
+                    "-" -> x - y
+                    "*" -> x * y
+                    "/" -> x / y
+                                          
+
 main :: IO ()
-main = print (findLargest [4])
+main = print (calculator 4.5 "/" 9)
