@@ -1,4 +1,5 @@
 import Text.ParserCombinators.ReadPrec (step)
+import System.Win32 (xBUTTON1)
 
 bmi :: Float -> Float -> String
 bmi weight height 
@@ -47,7 +48,6 @@ distance :: Double -> Double -> Double -> Double -> Double
 distance x1 y1 x2 y2 = sqrt (((x2-x1) ^ 2) + ((y2-y1) ^ 2))
 
 
-
 postagePrice :: Int -> Int
 postagePrice gr
   | gr <= 500 = 500
@@ -56,8 +56,23 @@ postagePrice gr
 
 
 concatanate :: [a] -> [a] -> [a]
-concatanate a b = a ++ b 
+concatanate xs ys = xs ++ ys 
  
 
+findSmallest :: Ord a => [a] -> a
+findSmallest [x] = x
+findSmallest (x:xs)
+  | x < smallestRest = x
+  | otherwise = smallestRest
+  where smallestRest = findSmallest xs
+
+
+findLargest :: Ord a => [a] -> a
+findLargest [x] = x
+findLargest (x:xs)
+  | x > largestRest = x
+  | otherwise = largestRest
+  where largestRest = findLargest xs
+
 main :: IO ()
-main = print (bmi 100 1.80)
+main = print (findLargest [4])
