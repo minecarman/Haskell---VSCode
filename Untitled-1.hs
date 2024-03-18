@@ -1,5 +1,13 @@
 import Text.ParserCombinators.ReadPrec (step)
 
+bmi :: Float -> Float -> String
+bmi weight height 
+  | n < 18.5 = "Underweight"
+  | n < 24.9 = "Normal"
+  | n < 29.9 = "Overweight"
+  | otherwise = "Obese"
+  where
+    n = weight / (height * height)
 
 fac :: Int -> Int
 fac n = if n == 1 then 1 else n * fac (n-1)
@@ -52,4 +60,4 @@ concatanate a b = a ++ b
  
 
 main :: IO ()
-main = print (concatanate [1, 2] [3, 4])
+main = print (bmi 100 1.80)
