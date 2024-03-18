@@ -1,6 +1,7 @@
 import Text.ParserCombinators.ReadPrec (step)
 import System.Win32 (xBUTTON1, COORD (yPos))
 
+
 bmi :: Float -> Float -> String
 bmi weight height 
   | n < 18.5 = "Underweight"
@@ -10,12 +11,19 @@ bmi weight height
   where
     n = weight / (height * height)
 
+
 fac :: Int -> Int
 fac n = if n == 1 then 1 else n * fac (n-1)
 
 
+sumTo :: Integer -> Integer
+sumTo 1 = 1
+sumTo n = n + sumTo(n-1) 
+
+
 fib1 :: Num long => Int -> long
 fib1 n = if n <= 1 then 1 else fib (n-1) + fib (n-2)
+
 
 fibonacci :: Integer -> Integer
 fibonacci = fibonacci' 0 1
@@ -81,7 +89,16 @@ calculator x operation y =
                     "-" -> x - y
                     "*" -> x * y
                     "/" -> x / y
+
+
+isPalindrome :: String -> Bool
+isPalindrome text = text == reverse text
+
+
+power :: Integer -> Integer -> Integer
+power n 0 = 1 
+power n k = n * power n (k-1)
                                           
 
 main :: IO ()
-main = print (calculator 4.5 "/" 9)
+main = print (isPalindrome "ba")
