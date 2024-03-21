@@ -3,7 +3,7 @@ import System.Win32 (xBUTTON1, COORD (yPos))
 
 
 bmi :: Float -> Float -> String
-bmi weight height 
+bmi weight height
   | n < 18.5 = "Underweight"
   | n < 24.9 = "Normal"
   | n < 29.9 = "Overweight"
@@ -18,7 +18,7 @@ fac n = if n == 1 then 1 else n * fac (n-1)
 
 sumTo :: Integer -> Integer
 sumTo 1 = 1
-sumTo n = n + sumTo(n-1) 
+sumTo n = n + sumTo (n-1)
 
 
 fib1 :: Num long => Int -> long
@@ -47,7 +47,7 @@ primes :: [Integer]
 primes = [ n | n <- [2..] , all (\k -> n `mod` k /= 0) [2..n `div` 2] ]
 
 
-collatz :: Integer -> Integer 
+collatz :: Integer -> Integer
 collatz 1 = 1
 collatz n = if even n then collatz (div n 2) else collatz (3 * n + 1)
 
@@ -64,8 +64,8 @@ postagePrice gr
 
 
 concatanate :: [a] -> [a] -> [a]
-concatanate xs ys = xs ++ ys 
- 
+concatanate xs ys = xs ++ ys
+
 
 findSmallest :: Ord a => [a] -> a
 findSmallest [x] = x
@@ -84,7 +84,7 @@ findLargest (x:xs)
 
 
 calculator :: Fractional a => a -> String -> a -> a
-calculator x operation y = 
+calculator x operation y =
   case operation of "+" -> x + y
                     "-" -> x - y
                     "*" -> x * y
@@ -96,9 +96,58 @@ isPalindrome text = text == reverse text
 
 
 power :: Integer -> Integer -> Integer
-power n 0 = 1 
+power n 0 = 1
 power n k = n * power n (k-1)
-                                          
+
+substring :: Int -> Int -> String -> String
+substring i j s = take (j-i) (drop i s)
+
+safeDiv :: Integer -> Integer -> Maybe Integer
+safeDiv x y = if y == 0 then Nothing else Just (div x y)
+
+
+greet :: String -> Maybe String -> String
+greet first last = case last of Nothing -> "Hello," ++ first
+                                Just last -> "Hello," ++ first ++ " " ++ last
+
+
+safeIndex :: [a] -> Int -> Maybe a
+safeIndex xs i
+  | len <= 0 || len < i = Nothing
+  | len >= i = Just (xs !! i)
+  where len = length xs
+
+
+eitherDiv :: Integer -> Integer -> Either String Integer
+eitherDiv x y
+  | y == 0 = Left (show x ++ "/" ++ show y)
+  | otherwise = Right (div x y)
+
+
+addEithers :: Either String Int -> Either String Int -> Either String Int
+addEithers (Right a) (Right b) = Right (a + b)
+addEithers (Left a) _ = Left a
+addEithers _ (Left b) = Left b
+
+binomial :: Integer -> Integer -> Integer
+binomial a 0 = 1
+binomial 0 b = 0
+binomial a b = binomial (a-1) b + binomial (a-1) (b-1)
+
+oddFactorial :: Integer -> Integer
+oddFactorial 1 = 1
+oddFactorial n = if odd n then n * oddFactorial (n-2) else oddFactorial n-1
+
+myGcd :: Integer -> Integer -> Integer
+myGcd 0 b = b
+myGcd a 0 = a 
+myGcd a b = if a <= b then myGcd a (b-a) else myGcd b a 
+
+leftpad :: String -> Int -> String
+leftpad str i
+  | len < i = leftpad (" " ++ str) i
+  | otherwise = str
+  where len = length str
 
 main :: IO ()
-main = print (isPalindrome "ba")
+main = print (leftpad "abc" 3)
